@@ -138,10 +138,14 @@ services:
       GOTRUE_MAILER_URLPATHS_RECOVERY: ${MAILER_URLPATHS_RECOVERY}
       GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE: ${MAILER_URLPATHS_EMAIL_CHANGE}
 
-      GOTRUE_EXTERNAL_PHONE_ENABLED: ${ENABLE_PHONE_SIGNUP}
-      GOTRUE_SMS_AUTOCONFIRM: ${ENABLE_PHONE_AUTOCONFIRM}
+      # GOTRUE_EXTERNAL_PHONE_ENABLED: ${ENABLE_PHONE_SIGNUP}
+      # GOTRUE_SMS_AUTOCONFIRM: ${ENABLE_PHONE_AUTOCONFIRM}
       # Uncomment to enable custom access token hook. Please see: https://supabase.com/docs/guides/auth/auth-hooks for full list of hooks and additional details about custom_access_token_hook
 
+      GOTRUE_EXTERNAL_PHONE_ENABLED: "true"
+      GOTRUE_HOOK_SEND_SMS_ENABLED: "true"
+      GOTRUE_HOOK_SEND_SMS_URI: http://20.115.45.226:8000/functions/v1/dialog_sms
+      GOTRUE_HOOK_SEND_SMS_SECRETS: v1,whsec_9hb8gJgYKAn2doIoujv52/wR7xE7jugJMxXE5Xapuf8=
       # GOTRUE_HOOK_CUSTOM_ACCESS_TOKEN_ENABLED: "true"
       # GOTRUE_HOOK_CUSTOM_ACCESS_TOKEN_URI: "pg-functions://postgres/public/custom_access_token_hook"
       # GOTRUE_HOOK_CUSTOM_ACCESS_TOKEN_SECRETS: "<standard-base64-secret>"
@@ -329,6 +333,10 @@ services:
       SUPABASE_DB_URL: postgresql://postgres:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
       # TODO: Allow configuring VERIFY_JWT per function. This PR might help: https://github.com/supabase/cli/pull/786
       VERIFY_JWT: "${FUNCTIONS_VERIFY_JWT}"
+      DIALOG_SMS_USERNAME: "${DIALOG_SMS_USERNAME}"
+      DIALOG_SMS_DIGEST: "${DIALOG_SMS_DIGEST}"
+      DIALOG_SMS_Q: "${DIALOG_SMS_Q}"
+      SEND_SMS_HOOK_SECRET: "${SEND_SMS_HOOK_SECRET}"
     command:
       [
         "start",
